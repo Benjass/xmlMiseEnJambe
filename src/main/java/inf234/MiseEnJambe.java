@@ -34,7 +34,7 @@ public class MiseEnJambe {
         boolean result = false; // variable resultat qui sera return
         int i = 0; // compteur pour le while
         while ((i<contenant.length()) && (result == false)) {// shema de recherche de texte
-            if (s.charAt(0) = contenant.charAt(i)){ // test si un caractère de texte est égal au premier de s
+            if (s.charAt(0) == contenant.charAt(i)){ // test si un caractère de texte est égal au premier de s
                 result = true; // initialisation de la variable resultat
                 for(int j=1;j<s.length();j++){ // parcours de s
                     result = result && (s.charAt(j) == contenant.charAt(i+j)); // comparaison des tout les elements de s avec la sequence correspondante de texte
@@ -74,7 +74,7 @@ public class MiseEnJambe {
 		
 			while( (this.texte).charAt(i) != '>'){  //shéma de recherche du cractère '>' qui referme '<'
 	             
-				s = s + charAt(i);
+				s = s + (this.texte).charAt(i);
 				i++;
 		     	    }
 				resultat = stringContient(s,b);
