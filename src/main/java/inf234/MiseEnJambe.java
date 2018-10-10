@@ -37,8 +37,8 @@ public class MiseEnJambe {
             if (s.charAt(0) = contenant.charAt(i)){ // test si un caractère de texte est égal au premier de s
                 result = true; // initialisation de la variable resultat
                 for(int j=1;j<s.length();j++){ // parcours de s
-                    result = result && (s.charAt(j) == contenant.charAt(i+j)) // comparaison des tout les elements de s avec la sequence correspondante de texte
-                })
+                    result = result && (s.charAt(j) == contenant.charAt(i+j)); // comparaison des tout les elements de s avec la sequence correspondante de texte
+                }
             }
             i++;
         }
@@ -126,7 +126,7 @@ public class MiseEnJambe {
 		  	String textemodif= ""; // String d'enregistrement du texte modifie ( sans les commentaires)
 		  
 			for( int i=0; i<tlength;i++){ // boucle de Parcour pour l'enregistrement du texte modife
-				if(text.charAt(i) == '<'
+				if((text.charAt(i) == '<')
 				&& (text.charAt(i+1) == '!')  
 				&& (text.charAt(i+2) == '-') 
 				&& (text.charAt(i+3) == '-')){
