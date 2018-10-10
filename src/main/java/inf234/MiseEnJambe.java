@@ -37,12 +37,34 @@ public class MiseEnJambe {
     /**
      * Vrai ssi texte contient la balise de nom b.
      * Rappel, on devra prendre en compte les cas simples (ex :"<b>") et les cas complexes
-     * (ex: "<b attr="..."> 
+     * (ex: "<b attr="...">
      * @param b le nom de la balise à rechercher.
-     * @return
+     * @return 
      */
     public boolean contientBalise(String b) {
-        return false;
+    int i = 0;                                       //conteur parcourant chaque caractère du texte 
+    String s = "";                                   // chaîne de caractère vide que l'on va concaténer avec chaque caractère de la sous 
+						     // chaîne de caractère obtenue entre '<' et '>'
+    boolean resultat = false;
+	
+	while( (i < (this.texte).length())&&(!resultat) ){   //shéma de recherche du premier caractère '<'
+	     	
+		if((this.texte).charAt(i) == '<'){
+		i++;                                         //on se place sur le caractère qui suit '<'
+		
+			while( (this.texte).charAt(i) != '>'){  //shéma de recherche du cractère '>' qui referme '<'
+	             
+				s = s + charAt(i);
+				i++;
+		     	    }
+				resultat = stringContient(s,b);
+	         
+		   }else{ i++; 
+                       }
+
+             }
+
+	return resultat;
     }
 
     /**
@@ -52,16 +74,55 @@ public class MiseEnJambe {
      * @return contenance de c dans le texte
      */
     public boolean contientContenu(String c) {
-        return false;
-    }
+        String container = ""; //Variable de stockage avec remise a zero a chaque passage sur balise
+        boolean isIn = false; //Varbiable de verification d'appartennance
+        for(int i=0; i < this.texte.length(); i++){ //Schema de parcours du texte
+            if(this.texte.charAt(i) != '<'){  //Supression des balises et reset de la variable container
+                while(this.texte.charAt(i) != '>'){
+                    container = "";
+                    i++;
+                }
+            }
 
+            container += this.texte.charAt(i);
+
+            if (stringContient(container,c)){ //Verification de l'apartenance du contenu c au container
+                isIn = true; 
+                i = this.texte.length();
+            }
+
+            i++;
+        }
+        return isIn;
+    }
+    
     /**
      * Renvoie une version sans commentaire XML de texte.
-     * @return
+     * @return le texte sans les commentaires
      */
     public String sansCommentaire() {
-        return null;
-    }
+        	String text = this.texte; // recuperation du string texte de l'objet pour simplifier le texte
+			int tlength = texte.length(); //longueur en nombre de caracteres du  
+		  	String textemodif= ""; // String d'enregistrement du texte modifie ( sans les commentaires)
+		  
+			for( int i=0; i<tlength;i++){ // boucle de Parcour pour l'enregistrement du texte modife
+				if(text.charAt(i) == '<'
+				&& (text.charAt(i+1) == '!')  
+				&& (text.charAt(i+2) == '-') 
+				&& (text.charAt(i+3) == '-')){
+					i+=4;
+
+					//Boucle de parcour secondaire pour ne pas enregister les commentaires
+					while ((!(text.charAt(i) == '-')) && (!(text.charAt(i+1) == '-')) && (!(text.charAt(i+2) == '>'))) { 
+						i++;
+					}
+					i+=3;
+				} else {
+					textemodif = textemodif + texte.charAt(i);
+				}		
+			}
+			return textemodif;
+	}
 
     /**
      * Renvoie une version de texte où toutes les données contenues à l'intérieur d'une balise b on été supprimées.
